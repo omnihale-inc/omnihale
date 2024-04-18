@@ -5,6 +5,25 @@ import Image from "next/image";
 import Search from "@/components/Search";
 import SearchItem from "@/components/SearchItem";
 
+const data = [
+  {
+    profilePic: "/logo.svg",
+    name: "national eye center",
+    address: "no 3 redemption road",
+    state: "Abuja",
+    numberOfAppointments: 25,
+    fields: ["name", "address", "phone number", "date of birth"],
+  },
+  {
+    profilePic: "/logo.svg",
+    name: "national ear center",
+    address: "ne appa 34 mando",
+    state: "Kaduna",
+    numberOfAppointments: 10,
+    fields: ["name", "address", "phone number", "date of birth"],
+  },
+];
+
 export default function SearchPage() {
   const [search, setSearch] = useState("");
   return (
@@ -25,8 +44,10 @@ export default function SearchPage() {
         <p className="mt-4 lg:mt-8 lg:ml-6 text-xs lg:text-base">
           Search results found!
         </p>
-        <div className="md:flex md:justify-between">
-          <SearchItem />
+        <div className="md:flex md:flex-wrap md:justify-between">
+          {data.map((item) => {
+            return <SearchItem {...item} />;
+          })}
         </div>
       </section>
     </main>
