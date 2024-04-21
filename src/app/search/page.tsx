@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Search from '@/components/Search';
 import SearchItem from '@/components/SearchItem';
 
@@ -22,13 +21,18 @@ const URL =
 export default function SearchPage() {
   const [search, setSearch] = useState('');
   const [data, setData] = useState<Array<SearchItemProp>>([]);
-  const [isDocumentReady, setIsDocumentReady] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+
   useEffect(() => {
     const search = localStorage.getItem('search');
-    if (search) setSearch(search);
+    if (search) {
+      setSearch(search);
+      setIsSearch(true);
+    } else {
+      location.href = '/';
+    }
     const results = JSON.parse(localStorage.getItem('search_result') || '[]');
     if (results) setData(results);
-    if (document.readyState === 'complete') setIsDocumentReady(true);
   }, []);
 
   const searchRequest = (value: string) => {
@@ -49,7 +53,7 @@ export default function SearchPage() {
       });
   };
   return (
-    isDocumentReady && (
+    isSearch && (
       <main className='w-10/12 max-w-7xl mx-auto'>
         <header>
           <h3 className='text-center lg:text-left text-lg lg:text-4xl mt-10 font-semibold'>
