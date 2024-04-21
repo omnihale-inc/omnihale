@@ -5,25 +5,6 @@ import Image from 'next/image';
 import Search from '@/components/Search';
 import SearchItem from '@/components/SearchItem';
 
-// const data = [
-//   {
-//     profilePic: '/logo.svg',
-//     name: 'national eye center',
-//     address: 'no 3 redemption road',
-//     state: 'Abuja',
-//     numberOfAppointments: 25,
-//     fields: ['name', 'address', 'phone number', 'date of birth'],
-//   },
-//   {
-//     profilePic: '/logo.svg',
-//     name: 'national ear center',
-//     address: 'ne appa 34 mando',
-//     state: 'Kaduna',
-//     numberOfAppointments: 10,
-//     fields: ['name', 'address', 'phone number', 'date of birth'],
-//   },
-// ];
-
 type SearchItemProp = {
   profilePic: string;
   name: string;
