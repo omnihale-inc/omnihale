@@ -36,6 +36,7 @@ export default function SearchPage() {
   }, []);
 
   const searchRequest = (value: string) => {
+    localStorage.removeItem('search_result');
     const options = {
       method: 'POST',
       body: JSON.stringify({ search: value }),
