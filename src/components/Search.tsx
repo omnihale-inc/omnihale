@@ -18,7 +18,7 @@ const Search = ({
     <div className="relative">
       <input
         value={search}
-        type="search"
+        type="text"
         className={`border border-gray-200 ${className} w-full rounded-full text-xs lg:text-base`}
         placeholder="Search for healthcare by name, address or state"
         onChange={(e) => {
@@ -28,7 +28,7 @@ const Search = ({
         }}
       />
       <button
-        className="absolute top-1/2 right-4 transform -translate-y-1/2"
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 h-full"
         onClick={() => {
           location.href = "/search";
           searchRequest(true);
