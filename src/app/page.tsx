@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import Search from '@/components/Search';
+import axios from 'axios';
 
 const URL =
   process.env.NODE_ENV === 'development'
@@ -20,12 +21,12 @@ export default function HomePage() {
       },
     };
 
-    fetch(`${URL}/search`, options)
+    axios(`${URL}/search`, options)
       .then((res) => {
-        return res.json();
+        localStorage.setItem('search_result', JSON.stringify(res.data));
       })
-      .then((data) => {
-        localStorage.setItem('search_result', JSON.stringify(data));
+      .catch((error) => {
+        console.error('Axios error:', error.message);
       });
   };
   return (
