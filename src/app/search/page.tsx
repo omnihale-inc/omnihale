@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import Search from "@/components/Search";
 import SearchItem from "@/components/SearchItem";
+import ScheduleModal from "@/components/ScheduleModal";
+import ScheduleModalChildren from "@/components/ScheduleModalChildren";
+import React from "react";
 
 type SearchItemProp = {
   profilePic: string;
@@ -10,6 +13,7 @@ type SearchItemProp = {
   address: string;
   state: string;
   appointments: number;
+  id: number;
   fields: Array<string>;
 };
 
@@ -22,6 +26,17 @@ export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState<Array<SearchItemProp>>([]);
   const [isSearch, setIsSearch] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is coming from the add-appointment page
+    if (localStorage.getItem("add-appointment") === "true") {
+      // Open the modal if the user is coming from the add-appointment page
+      setModal(true);
+      history.pushState({}, "", "/add-appointment");
+      localStorage.setItem("add-appointment", "false");
+    }
+  }, []);
 
   useEffect(() => {
     const search = localStorage.getItem("search");
@@ -76,7 +91,20 @@ export default function SearchPage() {
           </p>
           <div className="md:flex md:flex-wrap md:justify-between">
             {data.map((item, index) => {
-              return <SearchItem key={index} {...item} />;
+              return (
+                <React.Fragment key={index}>
+                  <SearchItem {...item} onModal={setModal} />
+                  {modal && (
+                    <ScheduleModal>
+                      <ScheduleModalChildren
+                        onModal={setModal}
+                        fields={item.fields}
+                        userId={item.id}
+                      />
+                    </ScheduleModal>
+                  )}
+                </React.Fragment>
+              );
             })}
           </div>
         </section>

@@ -47,7 +47,7 @@ export default function HomePage() {
         />
         <div className="flex flex-col items-center mt-12">
           <a
-            className="mt-16 font-semibold border w-fit py-2 px-7 m-auto mb-6 rounded-full"
+            className="mt-16 font-semibold border w-fit py-1.5 lg:py-2 px-7 m-auto mb-6 rounded-full text-xs lg:text-base"
             href="https://business.omnihale.com"
             target="_"
           >
