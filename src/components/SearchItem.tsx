@@ -7,7 +7,7 @@ type SearchItemProp = {
   address: string;
   state: string;
   appointments: number;
-  onModal: (value: boolean) => void;
+  onModal: (value: { modal: boolean; name: string }) => void;
 };
 const SearchItem = ({
   profilePic,
@@ -50,7 +50,7 @@ const SearchItem = ({
         </li>
         <button
           className="block border px-5 py-2 rounded-full text-sm mt-8 w-fit mx-auto lg:mx-0"
-          onClick={() => onModal(true)}
+          onClick={() => onModal({ modal: true, name })}
         >
           Schedule appointment
         </button>

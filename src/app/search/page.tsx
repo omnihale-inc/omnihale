@@ -26,13 +26,19 @@ export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState<Array<SearchItemProp>>([]);
   const [isSearch, setIsSearch] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState({
+    modal: false,
+    name: "",
+  });
 
   useEffect(() => {
     // Check if the user is coming from the add-appointment page
     if (localStorage.getItem("add-appointment") === "true") {
       // Open the modal if the user is coming from the add-appointment page
-      setModal(true);
+      const modal: [boolean, string] | null = localStorage.getItem("modal") as
+        | [boolean, string]
+        | null;
+      if (modal) setModal({ modal: modal[0], name: modal[1] });
       history.pushState({}, "", "/add-appointment");
       localStorage.setItem("add-appointment", "false");
     }
@@ -94,7 +100,7 @@ export default function SearchPage() {
               return (
                 <React.Fragment key={index}>
                   <SearchItem {...item} onModal={setModal} />
-                  {modal && (
+                  {modal.modal && modal.name === item.name && (
                     <ScheduleModal>
                       <ScheduleModalChildren
                         onModal={setModal}
