@@ -19,7 +19,7 @@ const ScheduleModalChildren = React.memo(function ScheduleModalChildren({
   fields,
   userId,
 }: {
-  onModal: (value: boolean) => void;
+  onModal: (value: { modal: boolean; name: string }) => void;
   fields: Array<string>;
   userId: number;
 }) {
@@ -43,7 +43,7 @@ const ScheduleModalChildren = React.memo(function ScheduleModalChildren({
             className="border rounded-2xl border-black px-4 py-1 text-sm flex items-center"
             onClick={() => {
               // Closes modal
-              onModal(false);
+              onModal({ modal: false, name: "" });
               // Changes url back to health care provider home
               history.pushState({}, "", "/");
               // Enables scrolling
