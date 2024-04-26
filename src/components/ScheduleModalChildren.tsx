@@ -38,7 +38,7 @@ const ScheduleModalChildren = React.memo(function ScheduleModalChildren({
     <div className="fixed w-screen h-screen backdrop-blur-sm grid place-items-center z-20">
       <div className="w-10/12 max-w-2xl border border-gray-200 rounded-md bg-gray-50">
         <div className="flex items-center justify-between border-b border-gray-100 p-4 mb-2">
-          <h3 className="font-semibold">Add Appointment</h3>
+          <h3 className="font-semibold">Schedule Appointment</h3>
           <button
             className="border rounded-2xl border-black px-4 py-1 text-sm flex items-center"
             onClick={() => {
