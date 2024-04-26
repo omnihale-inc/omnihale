@@ -59,14 +59,13 @@ export default function SearchPage() {
   useEffect(() => {
     localStorage.removeItem("search_result");
     const options = {
-      method: "POST",
-      body: JSON.stringify({ search: search }),
+      method: "GET",
       headers: {
         "content-type": "application/json",
       },
     };
 
-    fetch(`${URL}/search`, options)
+    fetch(`${URL}/search?q=${search}`, options)
       .then((res) => {
         return res.json();
       })

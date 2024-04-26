@@ -32,7 +32,7 @@ export default function HomePage() {
       });
   }, [isSearch]);
   return (
-    <main className="grid place-items-center h-screen">
+    <main className="grid place-items-center h-svh lg:h-screen">
       <div className="flex flex-col justify-between w-10/12 max-w-xl">
         <div>
           <h2 className="text-center text-lg lg:text-4xl mb-4 font-semibold">
