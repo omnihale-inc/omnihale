@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Search from "@/components/Search";
-import SearchItem from "@/components/SearchItem";
-import ScheduleModal from "@/components/ScheduleModal";
-import ScheduleModalChildren from "@/components/ScheduleModalChildren";
-import React from "react";
+import { useEffect, useState } from 'react';
+import Search from '@/components/Search';
+import SearchItem from '@/components/SearchItem';
+import ScheduleModal from '@/components/ScheduleModal';
+import ScheduleModalChildren from '@/components/ScheduleModalChildren';
+import React from 'react';
 
 type SearchItemProp = {
   profilePic: string;
@@ -18,83 +18,85 @@ type SearchItemProp = {
 };
 
 const URL =
-  process.env.NODE_ENV === "development"
-    ? "http://127.0.0.1:8000"
-    : "https://api.omnihale.com";
+  process.env.NODE_ENV === 'development'
+    ? 'http://127.0.0.1:8000'
+    : 'https://api.omnihale.com';
 
 export default function SearchPage() {
-  const [search, setSearch] = useState("");
+  // State for search input value
+  const [search, setSearch] = useState('');
+
+  // State for search results
   const [data, setData] = useState<Array<SearchItemProp>>([]);
+
+  // State to track if search has been triggered
   const [isSearch, setIsSearch] = useState(false);
+
+  // State for modal visibility and name
   const [modal, setModal] = useState({
     modal: false,
-    name: "",
+    name: '',
   });
 
   useEffect(() => {
-    // Check if the user is coming from the add-appointment page
-    if (localStorage.getItem("add-appointment") === "true") {
-      // Open the modal if the user is coming from the add-appointment page
-      const modal: [boolean, string] | null = localStorage.getItem("modal") as
-        | [boolean, string]
-        | null;
-      if (modal) setModal({ modal: modal[0], name: modal[1] });
-      history.pushState({}, "", "/add-appointment");
-      localStorage.setItem("add-appointment", "false");
+    // Check if the user is coming from the schedule page
+    if (localStorage.getItem('schedule') === 'true') {
+      console.log('ran');
+      // Open the modal if the user is coming from the schedule page
+      const modal = JSON.parse(localStorage.getItem('modal') || 'null') as {
+        modal: boolean;
+        name: string;
+      };
+
+      if (modal) setModal({ modal: modal.modal, name: modal.name });
+      // Update the browser history to reflect the current page as 'schedule'
+      history.pushState({}, '', '/schedule');
+      // Reset the 'schedule' flag in local storage
+      localStorage.setItem('schedule', 'false');
     }
   }, []);
 
   useEffect(() => {
-    const search = localStorage.getItem("search");
+    // Get the search value from local storage
+    const search = localStorage.getItem('search');
     if (search) {
+      // Set the search value and trigger search
       setSearch(search);
       setIsSearch(true);
-    } else {
-      location.href = "/";
     }
-    const results = JSON.parse(localStorage.getItem("search_result") || "[]");
-    if (results) setData(results);
-  }, []);
+
+    // Check if the search value exists
+    if (search) {
+      // Call the searchRequest function with the current search value
+      searchRequest(isSearch, search, setData);
+    }
+  }, [isSearch, search]);
 
   useEffect(() => {
-    localStorage.removeItem("search_result");
-    const options = {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    };
+    searchRequest(isSearch, search, setData);
+  }, [isSearch, search]);
 
-    fetch(`${URL}/search?q=${search}`, options)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        localStorage.setItem("search_result", JSON.stringify(data));
-        setData(data);
-      });
-  }, [isSearch]);
   return (
     isSearch && (
-      <main className="w-10/12 max-w-7xl mx-auto">
+      <main className='w-10/12 max-w-7xl mx-auto'>
         <header>
-          <h3 className="text-center lg:text-left text-lg lg:text-4xl mt-10 font-semibold">
+          <h3 className='text-center lg:text-left text-lg lg:text-4xl mt-10 font-semibold'>
             Omnihale
           </h3>
-          <div className="lg:w-6/12 mt-4 lg:mt-8 lg:ml-6">
+          <div className='lg:w-6/12 mt-4 lg:mt-8 lg:ml-6'>
             <Search
               search={search}
               setSearch={setSearch}
-              className="pl-4 pr-10 lg:px-6 py-2.5"
+              className='pl-4 pr-10 lg:px-6 py-2.5'
               searchRequest={setIsSearch}
             />
           </div>
         </header>
         <section>
-          <p className="mt-4 lg:mt-8 lg:ml-6 text-xs lg:text-base">
+          <p className='mt-4 lg:mt-8 lg:ml-6 text-xs lg:text-base'>
             Search results found!
           </p>
-          <div className="md:flex md:flex-wrap md:justify-between">
+          <div className='md:flex md:flex-wrap md:justify-between'>
             {data.map((item, index) => {
               return (
                 <React.Fragment key={index}>
@@ -116,4 +118,32 @@ export default function SearchPage() {
       </main>
     )
   );
+}
+function searchRequest(
+  isSearch: boolean,
+  search: string,
+  setData: React.Dispatch<React.SetStateAction<SearchItemProp[]>>
+) {
+  localStorage.removeItem('search_result');
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+    },
+  };
+
+  // Perform fetch only when the isSearch is true to avoid
+  // unnecessary network request
+  if (isSearch) {
+    // Fetch search results from the API
+    fetch(`${URL}/search?q=${search}`, options)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // Update the data state with the search results
+        setData(data);
+      });
+  }
 }
