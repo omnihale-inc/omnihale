@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -8,6 +9,13 @@ export const metadata: Metadata = {
   title: "Omnihale",
   description: "Providing your everyday care needs",
   icons: "/logo.svg",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
