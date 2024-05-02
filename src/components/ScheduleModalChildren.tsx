@@ -32,7 +32,7 @@ const ScheduleModalChildren = React.memo(function ScheduleModalChildren({
   };
 
   return (
-    <div className='fixed w-screen h-screen backdrop-blur-sm grid place-items-center z-20'>
+    <div className='fixed w-screen h-screen bg-black/[0.3] backdrop-blur-sm  grid place-items-center mt-0 z-20'>
       <div className='w-10/12 max-w-2xl border border-gray-200 rounded-md bg-gray-50'>
         <div className='flex items-center justify-between border-b border-gray-100 p-4 mb-2'>
           <h3 className='font-semibold'>Schedule Appointment</h3>

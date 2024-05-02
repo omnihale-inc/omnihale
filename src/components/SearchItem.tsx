@@ -18,7 +18,7 @@ const SearchItem = ({
   onModal,
 }: SearchItemProp) => {
   return (
-    <ul className='flex flex-col lg:flex-row items-center lg:items-center mt-8 lg:mt-12 lg:ml-6 lg:space-x-4 lg:space-y-0 space-y-4 border w-10/12  md:w-5/12 lg:3/6 mx-auto md:mx-0 p-4 roun'>
+    <ul className='flex flex-col lg:flex-row items-center lg:items-center mt-8 lg:mt-12 lg:ml-6 lg:space-x-4 lg:space-y-0 space-y-4 border w-10/12  md:w-5/12 lg:3/6 mx-auto md:mx-0 p-4'>
       <ul className='mx-4 mb-2'>
         <li className='relative w-24 h-24 lg:w-32 lg:h-32'>
           {profilePic ? (

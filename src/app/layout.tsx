@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import type { Viewport } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+import type { Metadata } from 'next';
+import type { Viewport } from 'next';
+import localFont from 'next/font/local';
+import './globals.css';
 
-const satoshi = localFont({ src: "../fonts/WEB/fonts/Satoshi-Regular.woff2" });
+const satoshi = localFont({ src: '../fonts/WEB/fonts/Satoshi-Regular.woff2' });
 
 export const metadata: Metadata = {
-  title: "Omnihale",
-  description: "Providing your everyday care needs",
-  icons: "/logo.svg",
+  title: 'Omnihale',
+  description: 'Providing your everyday care needs',
+  icons: '/logo.svg',
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={satoshi.className}>
-        <div id="modal"></div>
+        <div id='modal' style={{ zIndex: 20 }}></div>
         {children}
       </body>
     </html>

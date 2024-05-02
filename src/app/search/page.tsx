@@ -79,8 +79,8 @@ export default function SearchPage() {
   return (
     isSearch && (
       <main className='w-10/12 max-w-7xl mx-auto'>
-        <header>
-          <h3 className='text-center lg:text-left text-lg lg:text-4xl mt-10 font-semibold'>
+        <header className='pt-10'>
+          <h3 className='text-center lg:text-left text-lg lg:text-4xl font-semibold'>
             Omnihale
           </h3>
           <div className='lg:w-6/12 mt-4 lg:mt-8 lg:ml-6'>
