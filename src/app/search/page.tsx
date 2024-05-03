@@ -97,22 +97,23 @@ export default function SearchPage() {
             Search results found!
           </p>
           <div className='md:flex md:flex-wrap md:justify-between'>
-            {data.map((item, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <SearchItem {...item} onModal={setModal} />
-                  {modal.modal && modal.name === item.name && (
-                    <ScheduleModal>
-                      <ScheduleModalChildren
-                        onModal={setModal}
-                        fields={item.fields}
-                        userId={item.id}
-                      />
-                    </ScheduleModal>
-                  )}
-                </React.Fragment>
-              );
-            })}
+            {data &&
+              data.map((item, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <SearchItem {...item} onModal={setModal} />
+                    {modal.modal && modal.name === item.name && (
+                      <ScheduleModal>
+                        <ScheduleModalChildren
+                          onModal={setModal}
+                          fields={item.fields}
+                          userId={item.id}
+                        />
+                      </ScheduleModal>
+                    )}
+                  </React.Fragment>
+                );
+              })}
           </div>
         </section>
       </main>
